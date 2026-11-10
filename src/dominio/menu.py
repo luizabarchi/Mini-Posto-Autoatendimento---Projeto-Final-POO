@@ -1,6 +1,8 @@
-from abc import ABC, abstractmethod
 from datetime import datetime
 from getpass import getpass
+from src.dominio.cliente import Cliente
+from src.dominio.transacao import Transacao
+from src.dominio.pagamento import PagamentoPIX, PagamentoDebito, PagamentoCredito
 
 class MenuExibicao():
 
