@@ -1,3 +1,6 @@
+
+from datetime import datetime
+
 class Cliente:
     def __init__(self, nome: str, data_nascimento: datetime, cpf: str):
         self.__nome = nome
