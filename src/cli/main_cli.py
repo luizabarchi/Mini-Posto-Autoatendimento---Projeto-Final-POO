@@ -4,5 +4,6 @@ from src.dominio.transacao import Transacao
 from src.dominio.bomba import BombaCombustivel
 
 def iniciar_cli():
-    menu = MenuExibicao()
-    executar.menu()
+    combustiveis = {1: Diesel(), 2: Gasolina(), 3: Etanol()} #bomba
+    menu = MenuExibicao(BombaCombustivel(), {}, combustiveis)
+    menu.executar()
