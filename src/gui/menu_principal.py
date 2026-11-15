@@ -1,45 +1,58 @@
 import tkinter as tk
 from tkinter import messagebox
-from src.gui.tela_cadastro import JanelaCadastro
+from src.gui.tela_cadastro import TelaCadastro
 
 
-class JanelaPrincipal(tk.Tk):
+class TelaMenuPrincipal(tk.Tk):
+
     def __init__(self):
         super().__init__()
         self.title("SmartGas - AutoPosto")
+        self.geometry("600x400")
         self.clientes = {}
-        self._montar_menu()
 
-    def _montar_menu(self):
-        tk.Label(self, text="Bem-vindo ao SmartGas AutoPosto", font=("Arial", 12, "bold")).grid(
-            row=0, column=0, padx=20, pady=15
+        titulo = tk.Label(self, text="SmartGas - AutoPosto", font=("Arial", 14, "bold"))
+        titulo.pack(side="top", pady=15)
+
+        painel = tk.Frame(self)
+
+        self.botao_abastecer = tk.Button(
+            painel,
+            text="1 - Abastecimento",
+            width=22,
+            command=self._ao_clicar_opcao_1,
         )
+        self.botao_abastecer.grid(row=0, column=0, padx=5, pady=8)
 
-        tk.Button(self, text="1 - Abastecimento", width=25, command=self._opcao_1).grid(
-            row=1, column=0, padx=20, pady=5
+        self.botao_manutencao = tk.Button(
+            painel,
+            text="2 - Manutenção",
+            width=22,
+            command=self._ao_clicar_opcao_2,
         )
+        self.botao_manutencao.grid(row=1, column=0, padx=5, pady=8)
 
-        tk.Button(self, text="2 - Manutenção", width=25, command=self._opcao_2).grid(
-            row=2, column=0, padx=20, pady=5
-        )
+        painel.pack(expand=True)
 
-        tk.Button(self, text="3 - Sair", width=25, command=self.destroy).grid(
-            row=3, column=0, padx=20, pady=15
-        )
+        # Botão Sair na parte inferior
+        self.botao_sair = tk.Button(self, text="3 - Sair", width=15, command=self.destroy)
+        self.botao_sair.pack(side="bottom", pady=15)
 
-    def _opcao_1(self):
-        JanelaCadastro(self, self.clientes, self._depois_do_cadastro)
-        messagebox.showinfo("Abastecimento", "Aqui abrirá a tela de cadastro!")
+    def _ao_clicar_opcao_1(self):
+        self.withdraw() # esconde o menu enquanto o cadastro estiver aberto
+        TelaCadastro(self, self.clientes, self._depois_do_cadastro)
 
     def _depois_do_cadastro(self, cliente):
+        self.deiconify() # volta e segue direto para o próximo passo
         messagebox.showinfo(
             "Próxima etapa",
-            f"Cliente {cliente.nome} (CPF: {cliente.cpf}) pronto para escolher o combustível!",
+            f"Cliente {cliente.nome} (CPF: {cliente.cpf}) pronto para abastecer!", parent=self
         )
 
-    def _opcao_2(self):
-        messagebox.showinfo("Manutenção", "Tela 2")
+    def _ao_clicar_opcao_2(self):
+        messagebox.showinfo("Manutenção", "Tela 2 (parte das colegas)", parent=self)
 
 
 if __name__ == "__main__":
-    JanelaPrincipal().mainloop()
+    tela = TelaMenuPrincipal()
+    tela.mainloop()
