@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-from src.Gui.tela_cadastro import JanelaCadastro
+from src.gui.tela_cadastro import JanelaCadastro
 
 
 class JanelaPrincipal(tk.Tk):
