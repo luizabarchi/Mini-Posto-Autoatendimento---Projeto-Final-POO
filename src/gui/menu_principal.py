@@ -55,7 +55,8 @@ class TelaMenuPrincipal(tk.Tk):
         )
 
     def _ao_clicar_opcao_2(self):
-        messagebox.showinfo("Manutenção", "Tela 2 (parte das colegas)", parent=self)
+        self.withdraw() 
+        tela_manutencao(self, self.bomba, self.combustiveis, self.transacoes)
 
 
 if __name__ == "__main__":
