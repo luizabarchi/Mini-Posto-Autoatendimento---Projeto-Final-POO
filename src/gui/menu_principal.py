@@ -5,11 +5,16 @@ from src.gui.tela_cadastro import TelaCadastro
 
 class TelaMenuPrincipal(tk.Tk):
 
-    def __init__(self):
+    def __init__(self, bomba, clientes, combustiveis, transacoes):
         super().__init__()
+        self.bomba = bomba
+        self.clientes = clientes
+        self.combustiveis = combustiveis
+        self.transacoes = transacoes
         self.title("SmartGas - AutoPosto")
         self.geometry("600x400")
         self.clientes = {}
+
 
         titulo = tk.Label(self, text="SmartGas - AutoPosto", font=("Arial", 14, "bold"))
         titulo.pack(side="top", pady=15)
