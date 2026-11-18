@@ -1,4 +1,5 @@
 import tkinter as tk
+from src.gui.utils import centralizar
 from tkinter import messagebox
 from src.dominio.pagamento import PagamentoCredito, PagamentoDebito, PagamentoPIX
 from src.dominio.transacao import Transacao
@@ -8,7 +9,7 @@ class TelaPagamento(tk.Toplevel):
     def __init__(self, master: tk.Tk, transacao: Transacao, ao_concluir_pagamento=None):
         super().__init__(master)
         self.title("SmartGas - Pagamento")
-        self.geometry("600x600")
+        centralizar(self, 600, 600)
         self.janela_principal = master
         self.transacao = transacao
         self.ao_concluir_pagamento = ao_concluir_pagamento
