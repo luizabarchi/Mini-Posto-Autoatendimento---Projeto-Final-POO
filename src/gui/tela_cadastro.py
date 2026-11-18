@@ -1,4 +1,5 @@
 import tkinter as tk
+from src.gui.utils import centralizar
 from tkinter import messagebox
 from datetime import datetime
 from src.dominio.cliente import Cliente
@@ -10,7 +11,7 @@ class TelaCadastro(tk.Toplevel):
     def __init__(self, master, clientes: dict, ao_finalizar_cadastro):
         super().__init__(master)
         self.title("SmartGas - Cadastro")
-        self.geometry("600x400")
+        centralizar(self, 600, 400)
         self.clientes = clientes
         self.ao_finalizar_cadastro = ao_finalizar_cadastro
         self.janela_principal = master
