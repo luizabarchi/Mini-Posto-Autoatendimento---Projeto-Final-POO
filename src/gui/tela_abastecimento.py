@@ -1,4 +1,5 @@
 import tkinter as tk
+from src.gui.utils import centralizar
 from tkinter import messagebox
 from src.dominio.transacao import Transacao
 
@@ -6,7 +7,7 @@ class TelaAbastecimento(tk.Toplevel):
     def __init__(self, master, cliente, bomba, combustiveis: dict, ao_finalizar_abastecimento):
         super().__init__(master)
         self.title("SmartGas - Abastecimento")
-        self.geometry("600x600")
+        centralizar(self, 600, 600)
         self.janela_principal = master
         self.cliente = cliente
         self.bomba = bomba
