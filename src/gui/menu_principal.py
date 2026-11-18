@@ -1,4 +1,5 @@
 import tkinter as tk
+from src.gui.utils import centralizar
 from src.dominio.bomba import BombaCombustivel
 from src.dominio.combustivel import Diesel, Gasolina, Etanol
 from src.gui.tela_cadastro import TelaCadastro
@@ -16,7 +17,7 @@ class TelaMenuPrincipal(tk.Tk):
         self.combustiveis = combustiveis
         self.transacoes = transacoes
         self.title("SmartGas - AutoPosto")
-        self.geometry("600x450")
+        centralizar(self, 600, 450)
 
         titulo = tk.Label(self, text="SmartGas - AutoPosto", font=("Arial", 14, "bold"))
         titulo.pack(side="top", pady=15)
