@@ -1,6 +1,10 @@
 import tkinter as tk
-from tkinter import messagebox
+from src.dominio.bomba import BombaCombustivel
+from src.dominio.combustivel import Diesel, Gasolina, Etanol
 from src.gui.tela_cadastro import TelaCadastro
+from src.gui.tela_abastecimento import TelaAbastecimento
+from src.gui.pagamento import TelaPagamento  
+from src.gui.tela_manutencao import tela_manutencao
 
 
 class TelaMenuPrincipal(tk.Tk):
@@ -12,9 +16,7 @@ class TelaMenuPrincipal(tk.Tk):
         self.combustiveis = combustiveis
         self.transacoes = transacoes
         self.title("SmartGas - AutoPosto")
-        self.geometry("600x400")
-        self.clientes = {}
-
+        self.geometry("600x450")
 
         titulo = tk.Label(self, text="SmartGas - AutoPosto", font=("Arial", 14, "bold"))
         titulo.pack(side="top", pady=15)
@@ -39,26 +41,44 @@ class TelaMenuPrincipal(tk.Tk):
 
         painel.pack(expand=True)
 
-        # Botão Sair na parte inferior
         self.botao_sair = tk.Button(self, text="3 - Sair", width=15, command=self.destroy)
         self.botao_sair.pack(side="bottom", pady=15)
 
     def _ao_clicar_opcao_1(self):
-        self.withdraw() # esconde o menu enquanto o cadastro estiver aberto
+        self.withdraw()
         TelaCadastro(self, self.clientes, self._depois_do_cadastro)
 
     def _depois_do_cadastro(self, cliente):
-        self.deiconify() # volta e segue direto para o próximo passo
-        messagebox.showinfo(
-            "Próxima etapa",
-            f"Cliente {cliente.nome} (CPF: {cliente.cpf}) pronto para abastecer!", parent=self
+        TelaAbastecimento(
+            self,
+            cliente,
+            self.bomba,
+            self.combustiveis,
+            self._depois_do_abastecimento,
         )
 
+    def _depois_do_abastecimento(self, transacao, numero_combustivel, litros):
+        TelaPagamento(
+            self,
+            transacao,
+            lambda: self._concluir_pagamento(transacao, numero_combustivel, litros),
+        )
+
+    def _concluir_pagamento(self, transacao, numero_combustivel, litros):
+        self.bomba.abastecer(numero_combustivel, litros)
+        self.transacoes.append(transacao)
+        self.deiconify()
+
     def _ao_clicar_opcao_2(self):
-        self.withdraw() 
+        self.withdraw()
         tela_manutencao(self, self.bomba, self.combustiveis, self.transacoes)
 
 
 if __name__ == "__main__":
-    tela = TelaMenuPrincipal()
+    tela = TelaMenuPrincipal(
+        BombaCombustivel(),
+        {},
+        {1: Diesel(), 2: Gasolina(), 3: Etanol()},
+        [],
+    )
     tela.mainloop()
