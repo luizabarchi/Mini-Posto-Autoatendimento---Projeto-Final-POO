@@ -1,4 +1,5 @@
 import tkinter as tk
+from src.gui.utils import centralizar
 from tkinter import ttk, messagebox
 from src.dominio.menu import MenuExibicao
 
@@ -15,7 +16,7 @@ class tela_manutencao(tk.Toplevel):
         self.combustiveis = combustiveis
         self.transacoes = transacoes
         self.title("SmartGas Autoposto")
-        self.geometry("600x600")
+        centralizar(self, 600, 600)
         self.protocol("WM_DELETE_WINDOW", self._voltar) #o x da janela também volta para o menu
         titulo_manutencao = tk.Label(self, text = "SmartGas - Manutenção", font = ("Arial", 18))
         titulo_manutencao.pack(side = "top") 
@@ -70,7 +71,7 @@ class tela_manutencao(tk.Toplevel):
     def __abrir_janela(self, titulo):
         janela = tk.Toplevel(self)  #janela secundária
         janela.title(titulo)
-        janela.geometry("600x600")
+        centralizar(janela, 600, 600)
         janela.transient(self) #fica na frente da tela anterior
         titulo_manutencao = tk.Label(janela, text = titulo, font = ("Arial", 18))
         titulo_manutencao.pack(side = "top")
