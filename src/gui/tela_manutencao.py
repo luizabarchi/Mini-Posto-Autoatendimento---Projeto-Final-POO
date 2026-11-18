@@ -15,7 +15,7 @@ class tela_manutencao(tk.Toplevel):
         self.combustiveis = combustiveis
         self.transacoes = transacoes
         self.title("SmartGas Autoposto")
-        self.geometry("600x400")
+        self.geometry("600x600")
         self.protocol("WM_DELETE_WINDOW", self._voltar) #o x da janela também volta para o menu
         titulo_manutencao = tk.Label(self, text = "SmartGas - Manutenção", font = ("Arial", 18))
         titulo_manutencao.pack(side = "top") 
@@ -35,8 +35,13 @@ class tela_manutencao(tk.Toplevel):
         self.entrada_senha.focus_set() #recebe dados do teclado
         self.entrada_senha.bind("<Return>", lambda evento: self.verificar_senha()) #enter também confirma
 
-        botao_entrar = tk.Button(self.frame_senha, text = "Entrar", width = 15, command = self.verificar_senha)
-        botao_entrar.pack(pady=10)
+        painel_botoes = tk.Frame(self.frame_senha) 
+        botao_entrar = tk.Button(painel_botoes, text = "Entrar", width = 12, command = self.verificar_senha)
+        botao_entrar.grid(row=0, column =0 ,padx=5 ,pady=10)
+
+        botao_voltar = tk.Button(painel_botoes, text="Voltar", width=12, command=self._voltar)
+        botao_voltar.grid(row=0, column= 1, padx=5, pady=10) # botao voltar caso alguem clice sem querer
+        painel_botoes.pack()
 
     def verificar_senha(self):
         senha_digitada = self.entrada_senha.get() #digitada
@@ -65,7 +70,7 @@ class tela_manutencao(tk.Toplevel):
     def __abrir_janela(self, titulo):
         janela = tk.Toplevel(self)  #janela secundária
         janela.title(titulo)
-        janela.geometry("600x400")
+        janela.geometry("600x600")
         janela.transient(self) #fica na frente da tela anterior
         titulo_manutencao = tk.Label(janela, text = titulo, font = ("Arial", 18))
         titulo_manutencao.pack(side = "top")
@@ -167,8 +172,3 @@ class tela_manutencao(tk.Toplevel):
     def _voltar(self):
         self.menu_principal.deiconify() #mostra o menu
         self.destroy() #fecha a manutenção
-        
-
-
-
-
